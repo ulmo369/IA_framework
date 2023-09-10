@@ -44,6 +44,7 @@ df[["Class"]].head(5)
 # Creación del modelo de regresión lineal
 model = LogisticRegression(fit_intercept=True)
 
+#yo queria declararle mi amor pero solo sabia declarar variables
 # Asignación de "x" y "y" para el modelo
 x = df[["MajorAxisLength", "MinorAxisLength"]]
 y = df['Class']
@@ -59,6 +60,7 @@ model.coef_
 
 model.intercept_
 
+print('\n')
 #Train
 
 # T R A I N : Predicciones del modelo
@@ -66,11 +68,16 @@ y_pred_train = model.predict(x_train)
 
 # Exactitud del modelo en el conjunto de entrenamiento
 accuracy_train = accuracy_score(y_train, y_pred_train)
-print("Accuracy en el conjunto de entrenamiento:", accuracy_train)
+print("Accuracy en el conjunto de train:", accuracy_train)
 
 # R-squared en el conjunto de entrenamiento
 r2_train = r2_score(y_train, y_pred_train)
-print("R-squared en el conjunto de entrenamiento:", r2_train)
+print("R-squared en el conjunto de train:", r2_train)
+
+# Mean Square Error de los datos predichos contra los datos reales
+mse2 = mean_squared_error(y_train, y_pred_train)
+print("Mean Squared Error en el conjunto de train:", mse2)
+print('\n')
 
 #Test
 
@@ -79,12 +86,17 @@ y_pred_test = model.predict(x_test)
 
 # Exactitud del modelo en el conjunto de prueba
 accuracy_test = accuracy_score(y_test, y_pred_test)
-print("Accuracy en el conjunto de prueba:", accuracy_test)
+print("Accuracy en el conjunto de test:", accuracy_test)
 
 # R-squared en el conjunto de prueba
 r2_test = r2_score(y_test, y_pred_test)
-print("R-squared en el conjunto de prueba:", r2_test)
+print("R-squared en el conjunto de test:", r2_test)
 
+# Mean Square Error de los datos predichos contra los datos reales
+mse1 = mean_squared_error(y_test, y_pred_test)
+print("Mean Squared Error en el conjunto de test:", mse1)
+
+print('\n')
 #Cross validation
 
 # Calcula el puntaje de validación cruzada en el conjunto de entrenamiento
@@ -94,10 +106,6 @@ scores = cross_val_score(model, x_train, y_train, cv=10, scoring="r2")
 mean_cv_score = abs(scores.mean())
 
 print("cross validation score:", mean_cv_score)
-
-# Mean Square Error de los datos predichos contra los datos reales
-mse = mean_squared_error(y_test, y_pred_test)
-print("Mean Squared Error en el conjunto de prueba:", mse)
 
 df1 = df[["MajorAxisLength", "MinorAxisLength"]]
 df2 = df[["Class"]]
